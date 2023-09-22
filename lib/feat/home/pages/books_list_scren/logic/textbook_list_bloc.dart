@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:libraryfront/core/network/network_try_handler.dart';
 import 'package:libraryfront/feat/home/logic/textbook/textbook_model.dart';
-import 'package:libraryfront/feat/home/logic/textbook/textbook_repository.dart';
+import 'package:libraryfront/feat/home/logic/textbook_repository.dart';
 
 part 'textbook_list_bloc.freezed.dart';
 

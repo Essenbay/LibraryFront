@@ -3,12 +3,12 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:libraryfront/core/network/network_try_handler.dart';
-import 'package:libraryfront/feat/home/logic/author_model.dart';
+import 'package:libraryfront/feat/home/logic/authors/author_model.dart';
 import 'package:libraryfront/feat/home/logic/authors/author_repository.dart';
-import 'package:libraryfront/feat/home/logic/genre_model.dart';
+import 'package:libraryfront/feat/home/logic/genres/genre_model.dart';
 import 'package:libraryfront/feat/home/logic/genres/genre_repository.dart';
 import 'package:libraryfront/feat/home/logic/textbook/textbook_model.dart';
-import 'package:libraryfront/feat/home/logic/textbook/textbook_repository.dart';
+import 'package:libraryfront/feat/home/logic/textbook_repository.dart';
 
 part 'edit_textbook_bloc.freezed.dart';
 

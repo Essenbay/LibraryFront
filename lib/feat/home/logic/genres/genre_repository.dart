@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:libraryfront/core/network/network_service.dart';
-import 'package:libraryfront/feat/home/logic/genre_model.dart';
+import 'package:libraryfront/feat/home/logic/genres/genre_model.dart';
 
 @LazySingleton()
 class GenreRepository {

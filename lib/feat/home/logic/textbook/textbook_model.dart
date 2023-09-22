@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:libraryfront/feat/home/logic/author_model.dart';
-import 'package:libraryfront/feat/home/logic/genre_model.dart';
+import 'package:libraryfront/feat/home/logic/authors/author_model.dart';
+import 'package:libraryfront/feat/home/logic/genres/genre_model.dart';
 
 part 'textbook_model.g.dart';
 

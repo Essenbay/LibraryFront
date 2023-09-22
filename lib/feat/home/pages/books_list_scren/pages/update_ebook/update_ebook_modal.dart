@@ -1,18 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libraryfront/core/di/injection_container.dart';
 import 'package:libraryfront/feat/home/logic/authors/author_model.dart';
+import 'package:libraryfront/feat/home/logic/ebook/model_ebook.dart';
 import 'package:libraryfront/feat/home/logic/genres/genre_model.dart';
-import 'package:libraryfront/feat/home/logic/textbook/textbook_bloc.dart';
-import 'package:libraryfront/feat/home/logic/textbook/textbook_model.dart';
-import 'package:libraryfront/feat/home/pages/books_list_scren/pages/update_textbook/logic/edit_textbook_bloc.dart';
+import 'package:libraryfront/feat/home/logic/Ebook/Ebook_bloc.dart';
+import 'package:libraryfront/feat/home/pages/books_list_scren/pages/update_textbook/logic/edit_ebook_bloc.dart';
 
-void showUpdateTextBookModal(BuildContext context,
-    TextBookModel initialTextBook, TextbookBloc bloc) async {
+void showUpdateEBookModal(
+    BuildContext conE, EBookModel initialEBook, EbookBloc bloc) async {
   final result = await showModalBottomSheet(
-    context: context,
+    context: conE,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(16.0),
@@ -21,61 +22,64 @@ void showUpdateTextBookModal(BuildContext context,
     ),
     isScrollControlled: true,
     clipBehavior: Clip.hardEdge,
-    builder: (BuildContext context) {
+    builder: (BuildContext conE) {
       return IntrinsicHeight(
           child: BlocProvider(
-        create: (context) =>
-            getIt<EditTextbookBloc>()..add(const EditTextbookEvent.fetchInfo()),
+        create: (conE) =>
+            getIt<EditEbookBloc>()..add(const EditEbookEvent.fetchInfo()),
         child: Padding(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: _UpdateTextbookModal(
-              initialTextBook: initialTextBook,
+            padding:
+                EdgeInsets.only(bottom: MediaQuery.of(conE).viewInsets.bottom),
+            child: _UpdateEbookModal(
+              initialEBook: initialEBook,
             )),
       ));
     },
   );
   if (result == true) {
-    bloc.add(TextbookEvent.fetch(id: initialTextBook.id));
+    bloc.add(EbookEvent.fetch(id: initialEBook.id));
   }
 }
 
-class _UpdateTextbookModal extends StatefulWidget {
-  const _UpdateTextbookModal({required this.initialTextBook});
-  final TextBookModel initialTextBook;
+class _UpdateEbookModal extends StatefulWidget {
+  const _UpdateEbookModal({required this.initialEBook});
+  final EBookModel initialEBook;
   @override
-  State<_UpdateTextbookModal> createState() => _UpdateTextbookModalState();
+  State<_UpdateEbookModal> createState() => _UpdateEbookModalState();
 }
 
-class _UpdateTextbookModalState extends State<_UpdateTextbookModal> {
+class _UpdateEbookModalState extends State<_UpdateEbookModal> {
   late final TextEditingController _title =
-      TextEditingController(text: widget.initialTextBook.title);
-  late final TextEditingController _edition =
-      TextEditingController(text: widget.initialTextBook.edition.toString());
-  late AuthorModel author = widget.initialTextBook.author;
-  late GenreModel genre = widget.initialTextBook.genre;
-  late bool isAvailable = widget.initialTextBook.available;
+      TextEditingController(text: widget.initialEBook.title);
+  late final TextEditingController _format =
+      TextEditingController(text: widget.initialEBook.format.toString());
+
+  late final TextEditingController _size =
+      TextEditingController(text: widget.initialEBook.size.toString());
+  late AuthorModel author = widget.initialEBook.author;
+  late GenreModel genre = widget.initialEBook.genre;
   String? _errorMessage;
 
   @override
   void dispose() {
     _title.dispose();
-    _edition.dispose();
+    _format.dispose();
+    _size.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<EditTextbookBloc, EditTextbookState>(
-      listener: (context, state) {
+  Widget build(BuildContext conE) {
+    return BlocConsumer<EditEbookBloc, EditEbookState>(
+      listener: (conE, state) {
         state.mapOrNull(
-          success: (value) => context.router.pop(true),
+          success: (value) => conE.router.pop(true),
           failure: (value) => setState(() => _errorMessage = value.message),
         );
       },
       buildWhen: (previous, current) =>
           current.maybeMap(failure: (value) => false, orElse: () => true),
-      builder: (context, state) {
+      builder: (conE, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
           child: state.maybeMap(
@@ -96,7 +100,7 @@ class _UpdateTextbookModalState extends State<_UpdateTextbookModal> {
                 const SizedBox(height: 10),
                 const Text('Edition', style: TextStyle(fontSize: 16)),
                 CupertinoTextField(
-                  controller: _edition,
+                  controller: _format,
                   placeholder: 'Title',
                   keyboardType: TextInputType.number,
                 ),
@@ -124,15 +128,18 @@ class _UpdateTextbookModalState extends State<_UpdateTextbookModal> {
                     if (value != null) genre = value;
                   }),
                 ),
-                CheckboxListTile(
-                    title: const Text('Is available?',
-                        style: TextStyle(fontSize: 16)),
-                    value: isAvailable,
-                    onChanged: (value) => setState(() {
-                          if (value != null) {
-                            isAvailable = value;
-                          }
-                        })),
+                const SizedBox(height: 10),
+                const Text('Size', style: TextStyle(fontSize: 16)),
+                CupertinoTextField(
+                  controller: _size,
+                  placeholder: 'Size',
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d+\.?\d{0,2}$')),
+                  ],
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
+                ),
                 const SizedBox(height: 10),
                 if (_errorMessage != null)
                   ListTile(
@@ -141,15 +148,10 @@ class _UpdateTextbookModalState extends State<_UpdateTextbookModal> {
                     title: Text(_errorMessage ?? 'Error occured'),
                   ),
                 ElevatedButton(
-                    onPressed: () => context.read<EditTextbookBloc>().add(
-                        UpdateEvent(
-                            id: widget.initialTextBook.id,
-                            textbook: TextbookRequest(
-                                _title.text,
-                                author.id,
-                                genre.id,
-                                int.parse(_edition.text),
-                                isAvailable))),
+                    onPressed: () => conE.read<EditEbookBloc>().add(UpdateEvent(
+                        id: widget.initialEBook.id,
+                        Ebook: EbookRequest(_title.text, author.id, genre.id,
+                            double.parse(_size.text), _format.text))),
                     child: const Text('Save'))
               ],
             ),

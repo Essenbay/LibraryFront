@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:libraryfront/core/network/network_service.dart';
-import 'package:libraryfront/feat/home/logic/author_model.dart';
+import 'package:libraryfront/feat/home/logic/authors/author_model.dart';
 
 @LazySingleton()
 class AuthorRepository {
