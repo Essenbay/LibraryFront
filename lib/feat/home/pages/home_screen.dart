@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libraryfront/core/di/injection_container.dart';
 import 'package:libraryfront/core/navigation/auto_route.gr.dart';
+import 'package:libraryfront/feat/home/pages/books_list_scren/logic/ebook_list_bloc.dart';
 import 'package:libraryfront/feat/home/pages/books_list_scren/logic/textbook_list_bloc.dart';
 
 class HomeTabBar extends StatelessWidget {
@@ -16,9 +17,10 @@ class HomeTabBar extends StatelessWidget {
           create: (context) =>
               getIt<TextbookListBloc>()..add(const TextbookListEvent.fetch()),
         ),
-        // BlocProvider(
-        //   create: (context) => SubjectBloc(),
-        // ),
+        BlocProvider(
+          create: (context) =>
+              getIt<EbookListBloc>()..add(const EbookListEvent.fetch()),
+        ),
       ],
       child: AutoTabsRouter.tabBar(
         routes: const [

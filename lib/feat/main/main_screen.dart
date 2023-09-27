@@ -15,49 +15,54 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    final tabsRouter = AutoTabsRouter.of(context);
-    final currentIndex = AutoTabsRouter.of(context, watch: true).activeIndex;
     return AutoTabsRouter(
-      routes: const [HomeTabBarRoute(), ],
-      builder: (context, child, animation) => Scaffold(
-        backgroundColor: AppColors.white,
-        body: FadeTransition(
-          opacity: animation,
-          child: child,
-        ),
-        
-        bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: tabsRouter.activeIndex,
-            onTap: (index) async => index == currentIndex
-                ? await clearCurrentTabStack(tabsRouter)
-                : tabsRouter.setActiveIndex(index),
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            backgroundColor: AppColors.white,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: tabsRouter.activeIndex == 0
-                        ? AppColors.primaryLight3
-                        : AppColors.greyLight,
-                    size: 22,
-                  ),
-                  label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person,
-                    color: tabsRouter.activeIndex == 0
-                        ? AppColors.primaryLight3
-                        : AppColors.greyLight,
-                    size: 22,
-                  ),
-                  label: ''),
-            ]),
-      ),
+      routes: const [
+        HomeTabBarRoute(),
+        ProfileScreenRoute(),
+      ],
+      builder: (context, child, animation) {
+        final tabsRouter = AutoTabsRouter.of(context);
+        final currentIndex =
+            AutoTabsRouter.of(context, watch: true).activeIndex;
+        return Scaffold(
+          backgroundColor: AppColors.white,
+          body: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: tabsRouter.activeIndex,
+              onTap: (index) async => index == currentIndex
+                  ? await clearCurrentTabStack(tabsRouter)
+                  : tabsRouter.setActiveIndex(index),
+              selectedFontSize: 12,
+              unselectedFontSize: 12,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              backgroundColor: AppColors.white,
+              items: [
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.home,
+                      color: tabsRouter.activeIndex == 0
+                          ? AppColors.primaryLight3
+                          : AppColors.greyLight,
+                      size: 22,
+                    ),
+                    label: ''),
+                BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.person,
+                      color: tabsRouter.activeIndex == 1
+                          ? AppColors.primaryLight3
+                          : AppColors.greyLight,
+                      size: 22,
+                    ),
+                    label: ''),
+              ]),
+        );
+      },
     );
   }
 

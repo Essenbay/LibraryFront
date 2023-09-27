@@ -10,43 +10,43 @@ class BookRepository {
   BookRepository(this.network);
 
   Future<List<TextBookModel>> getTextBooks() async {
-    final response = await network.dio.get<List>('/admin/books/textbooks');
+    final response = await network.dio.get<List>('/books/textbooks');
     return response.data?.map((e) => TextBookModel.fromJson(e)).toList() ?? [];
   }
 
   Future<TextBookModel> getTextBook(int id) async {
-    final response = await network.dio.get('/admin/books/textbooks/$id');
+    final response = await network.dio.get('/books/textbooks/$id');
     return TextBookModel.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<void> createTextBook(TextbookRequest textbook) async {
-    await network.dio.post('/admin/books/textbooks', data: textbook.toJson());
+    await network.dio.post('/books/textbooks', data: textbook.toJson());
   }
 
   Future<void> updateTextBook(int id, TextbookRequest textbookRequest) async {
     await network.dio
-        .put('/admin/books/textbooks/$id', data: textbookRequest.toJson());
+        .put('/books/textbooks/$id', data: textbookRequest.toJson());
   }
 
   Future<void> deleteBook(int id) async {
-    await network.dio.delete('/admin/books/$id');
+    await network.dio.delete('/books/$id');
   }
 
   Future<List<EBookModel>> getEBooks() async {
-    final response = await network.dio.get<List>('/admin/books/ebooks');
+    final response = await network.dio.get<List>('/books/ebooks');
     return response.data?.map((e) => EBookModel.fromJson(e)).toList() ?? [];
   }
 
   Future<EBookModel> getEBook(int id) async {
-    final response = await network.dio.get('/admin/books/ebooks/$id');
+    final response = await network.dio.get('/books/ebooks/$id');
     return EBookModel.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<void> createEBook(EbookRequest book) async {
-    await network.dio.post('/admin/books/ebooks', data: book.toJson());
+    await network.dio.post('/books/ebooks', data: book.toJson());
   }
 
   Future<void> updateEBook(int id, EbookRequest book) async {
-    await network.dio.put('/admin/books/ebooks/$id', data: book.toJson());
+    await network.dio.put('/books/ebooks/$id', data: book.toJson());
   }
 }

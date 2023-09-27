@@ -92,11 +92,23 @@ class _CreateEbookModalState extends State<_CreateEbookModal> {
                   placeholder: 'Title',
                 ),
                 const SizedBox(height: 10),
-                const Text('Edition', style: TextStyle(fontSize: 16)),
+                const Text('Format', style: TextStyle(fontSize: 16)),
                 CupertinoTextField(
                   controller: _format,
                   placeholder: 'Title',
                   keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 10),
+                const Text('Size', style: TextStyle(fontSize: 16)),
+                CupertinoTextField(
+                  controller: _size,
+                  placeholder: 'Size',
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^\d+\.?\d{0,2}$')),
+                  ],
+                  keyboardType:
+                      const TextInputType.numberWithOptions(decimal: true),
                 ),
                 const SizedBox(height: 10),
                 const Text('Author', style: TextStyle(fontSize: 16)),
@@ -121,18 +133,6 @@ class _CreateEbookModalState extends State<_CreateEbookModal> {
                   onChanged: (value) => setState(() {
                     if (value != null) genre = value;
                   }),
-                ),
-                const SizedBox(height: 10),
-                const Text('Size', style: TextStyle(fontSize: 16)),
-                CupertinoTextField(
-                  controller: _size,
-                  placeholder: 'Size',
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(
-                        RegExp(r'^\d+\.?\d{0,2}$')),
-                  ],
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
                 ),
                 const SizedBox(height: 10),
                 if (_errorMessage != null)

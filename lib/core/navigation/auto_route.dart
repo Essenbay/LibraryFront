@@ -6,6 +6,7 @@ import 'package:libraryfront/feat/home/pages/ebook_list_screen/ebook_item_screen
 import 'package:libraryfront/feat/home/pages/ebook_list_screen/ebook_list_screen.dart';
 import 'package:libraryfront/feat/home/pages/home_screen.dart';
 import 'package:libraryfront/feat/main/main_screen.dart';
+import 'package:libraryfront/feat/profile/pages/user_list_screen/user_list_screen.dart';
 import 'package:libraryfront/feat/profile/profile_screen.dart';
 
 @Singleton()
@@ -20,7 +21,9 @@ import 'package:libraryfront/feat/profile/profile_screen.dart';
           AutoRoute(page: EbookListScreen),
         ],
       ),
-      AutoRoute(page: ProfileScreen),
+      AutoRoute(page: ProfileScreen, children: [
+        AutoRoute(page: UserListScreen),
+      ]),
     ]),
     AutoRoute(page: TextbookItemScreen),
     AutoRoute(page: EbookItemScreen)

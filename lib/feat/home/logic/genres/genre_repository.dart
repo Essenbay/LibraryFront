@@ -9,21 +9,21 @@ class GenreRepository {
   GenreRepository(this.network);
 
   Future<List<GenreModel>> getGenres() async {
-    final response = await network.dio.get<List>('/admin/genres');
+    final response = await network.dio.get<List>('/genres');
     return response.data?.map((e) => GenreModel.fromJson(e)).toList() ?? [];
   }
 
   Future<GenreModel> getGenre(int id) async {
-    final response = await network.dio.get('/admin/genres/$id');
+    final response = await network.dio.get('/genres/$id');
     return GenreModel.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<void> createGenre(GenreRequest genre) async {
-    await network.dio.post('/admin/genres', data: genre.toJson());
+    await network.dio.post('/genres', data: genre.toJson());
   }
 
   Future<void> updateGenre(GenreRequest genre) async {
-    await network.dio.put('/admin/genres', data: genre.toJson());
+    await network.dio.put('/genres', data: genre.toJson());
   }
 
   Future<void> deleteBook(int id) async {

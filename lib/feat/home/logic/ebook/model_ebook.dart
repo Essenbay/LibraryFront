@@ -25,10 +25,10 @@ class EbookRequest {
   final String title;
   final int authorId;
   final int genreId;
-  final double dize;
+  final double size;
   final String format;
 
-  EbookRequest(this.title, this.authorId, this.genreId, this.dize, this.format);
+  EbookRequest(this.title, this.authorId, this.genreId, this.size, this.format);
 
   Map<String, Object?> toJson() => _$EbookRequestToJson(this);
 }

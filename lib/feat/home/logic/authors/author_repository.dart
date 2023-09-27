@@ -9,21 +9,21 @@ class AuthorRepository {
   AuthorRepository(this.network);
 
   Future<List<AuthorModel>> getAuthors() async {
-    final response = await network.dio.get<List>('/admin/authors');
+    final response = await network.dio.get<List>('/authors');
     return response.data?.map((e) => AuthorModel.fromJson(e)).toList() ?? [];
   }
 
   Future<AuthorModel> getAuthor(int id) async {
-    final response = await network.dio.get('/admin/authors/$id');
+    final response = await network.dio.get('/authors/$id');
     return AuthorModel.fromJson(response.data as Map<String, dynamic>);
   }
 
   Future<void> createAuthor(AuthorRequestModel author) async {
-    await network.dio.post('/admin/authors', data: author.toJson());
+    await network.dio.post('/authors', data: author.toJson());
   }
 
   Future<void> updateAuthor(AuthorRequestModel authorModel) async {
-    await network.dio.put('/admin/authors', data: authorModel.toJson());
+    await network.dio.put('/authors', data: authorModel.toJson());
   }
 
   Future<void> deleteBook(int id) async {
