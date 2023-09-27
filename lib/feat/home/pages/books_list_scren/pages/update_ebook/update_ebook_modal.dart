@@ -7,7 +7,7 @@ import 'package:libraryfront/core/di/injection_container.dart';
 import 'package:libraryfront/feat/home/logic/authors/author_model.dart';
 import 'package:libraryfront/feat/home/logic/ebook/model_ebook.dart';
 import 'package:libraryfront/feat/home/logic/genres/genre_model.dart';
-import 'package:libraryfront/feat/home/logic/Ebook/Ebook_bloc.dart';
+import 'package:libraryfront/feat/home/logic/ebook/bloc_ebook.dart';
 import 'package:libraryfront/feat/home/pages/books_list_scren/pages/update_textbook/logic/edit_ebook_bloc.dart';
 
 void showUpdateEBookModal(
@@ -150,7 +150,7 @@ class _UpdateEbookModalState extends State<_UpdateEbookModal> {
                 ElevatedButton(
                     onPressed: () => conE.read<EditEbookBloc>().add(UpdateEvent(
                         id: widget.initialEBook.id,
-                        Ebook: EbookRequest(_title.text, author.id, genre.id,
+                        ebook: EbookRequest(_title.text, author.id, genre.id,
                             double.parse(_size.text), _format.text))),
                     child: const Text('Save'))
               ],

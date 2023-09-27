@@ -5,7 +5,7 @@ import 'package:libraryfront/core/network/network_try_handler.dart';
 import 'package:libraryfront/feat/home/logic/ebook/model_ebook.dart';
 import 'package:libraryfront/feat/home/logic/textbook_repository.dart';
 
-part 'ebook_bloc.freezed.dart';
+part 'bloc_ebook.freezed.dart';
 
 @Injectable()
 class EbookBloc extends Bloc<EbookEvent, EbookState> {

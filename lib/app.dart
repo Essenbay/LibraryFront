@@ -18,7 +18,7 @@ class LibraryApp extends StatelessWidget {
       locale: const Locale('en'),
       routeInformationParser: _appRouter.defaultRouteParser(),
       routerDelegate:
-          _appRouter.delegate(initialRoutes: [const HomeTabBarRoute()]),
+          _appRouter.delegate(initialRoutes: [const MainScreenRoute()]),
     );
   }
 }

@@ -41,7 +41,7 @@ class EditEbookBloc extends Bloc<EditEbookEvent, EditEbookState> {
   Future<void> _createEvent(
       CreateEvent event, Emitter<EditEbookState> emit) async {
     await NetworkHandler.handle(
-        () async => await _repository.createEBook(event.Ebook),
+        () async => await _repository.createEBook(event.ebook),
         (result) => emit(const EditEbookState.success()),
         (exception) =>
             emit(EditEbookState.failure(message: exception.message)));
@@ -50,7 +50,7 @@ class EditEbookBloc extends Bloc<EditEbookEvent, EditEbookState> {
   Future<void> _updateEvent(
       UpdateEvent event, Emitter<EditEbookState> emit) async {
     await NetworkHandler.handle(
-        () async => await _repository.updateEBook(event.id, event.Ebook),
+        () async => await _repository.updateEBook(event.id, event.ebook),
         (result) => emit(const EditEbookState.success()),
         (exception) =>
             emit(EditEbookState.failure(message: exception.message)));
@@ -68,14 +68,14 @@ class EditEbookBloc extends Bloc<EditEbookEvent, EditEbookState> {
 
 @freezed
 class EditEbookEvent with _$EditEbookEvent {
-  const factory EditEbookEvent.create({required EbookRequest Ebook}) =
+  const factory EditEbookEvent.create({required EbookRequest ebook}) =
       CreateEvent;
 
   ///Fetches authors and genres
   const factory EditEbookEvent.fetchInfo() = FetchEvent;
 
   const factory EditEbookEvent.update(
-      {required int id, required EbookRequest Ebook}) = UpdateEvent;
+      {required int id, required EbookRequest ebook}) = UpdateEvent;
 
   const factory EditEbookEvent.delete({required int id}) = DeleteEvent;
 }

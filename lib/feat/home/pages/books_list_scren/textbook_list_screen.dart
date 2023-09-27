@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,8 +26,9 @@ class TextBookListScreen extends StatelessWidget {
                 onTap: () async {
                   final result = await context.router
                     .push(TextbookItemScreenRoute(id: state.list[index].id));
-                    if(result == true)
-                       context.read<TextbookListBloc>().add(const TextbookListEvent.fetch());
+                    if(result == true) {
+                      context.read<TextbookListBloc>().add(const TextbookListEvent.fetch());
+                    }
                 },
                 child: ListTile(
                   leading: Text(state.list[index].id.toString()),

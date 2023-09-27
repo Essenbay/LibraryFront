@@ -151,7 +151,7 @@ class _CreateEbookModalState extends State<_CreateEbookModal> {
                         showSnackBar(context, 'Fields must not be empty');
                       } else {
                         contex.read<EditEbookBloc>().add(CreateEvent(
-                            Ebook: EbookRequest(
+                            ebook: EbookRequest(
                                 _title.text,
                                 author!.id,
                                 genre!.id,

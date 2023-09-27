@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:libraryfront/core/navigation/auto_route.gr.dart';
 import 'package:libraryfront/core/util/colors.dart';
 
 const Key cartButtonKey = Key('Cart');
@@ -17,13 +18,14 @@ class _MainScreenState extends State<MainScreen> {
     final tabsRouter = AutoTabsRouter.of(context);
     final currentIndex = AutoTabsRouter.of(context, watch: true).activeIndex;
     return AutoTabsRouter(
-      routes: [],
+      routes: const [HomeTabBarRoute(), ],
       builder: (context, child, animation) => Scaffold(
         backgroundColor: AppColors.white,
         body: FadeTransition(
           opacity: animation,
           child: child,
         ),
+        
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: tabsRouter.activeIndex,
@@ -47,7 +49,7 @@ class _MainScreenState extends State<MainScreen> {
                   label: ''),
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home,
+                    Icons.person,
                     color: tabsRouter.activeIndex == 0
                         ? AppColors.primaryLight3
                         : AppColors.greyLight,
