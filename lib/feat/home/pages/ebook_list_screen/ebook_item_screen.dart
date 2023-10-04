@@ -6,6 +6,7 @@ import 'package:libraryfront/feat/home/pages/books_list_scren/pages/update_Ebook
 import 'package:libraryfront/feat/home/pages/books_list_scren/pages/update_textbook/logic/edit_ebook_bloc.dart';
 import 'package:libraryfront/feat/home/pages/ebook_list_screen/ebook_bloc_wrapper.dart';
 import 'package:libraryfront/feat/home/widgets/back_app_bar.dart';
+import 'package:libraryfront/feat/home/widgets/crud_widget.dart';
 
 class EbookItemScreen extends StatelessWidget {
   const EbookItemScreen({super.key, required this.id});
@@ -20,20 +21,22 @@ class EbookItemScreen extends StatelessWidget {
           return Scaffold(
             appBar: BackIconLeadingAppBar(
               actions: [
-                BlocListener<EditEbookBloc, EditEbookState>(
-                  listener: (context, state) {
-                    state.mapOrNull(
-                      success: (value) => context.router.pop(true),
-                    );
-                  },
-                  child: IconButton(
-                      onPressed: () => context
-                          .read<EditEbookBloc>()
-                          .add(EditEbookEvent.delete(id: id)),
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      )),
+                CrudWidget(
+                  child: BlocListener<EditEbookBloc, EditEbookState>(
+                    listener: (context, state) {
+                      state.mapOrNull(
+                        success: (value) => context.router.pop(true),
+                      );
+                    },
+                    child: IconButton(
+                        onPressed: () => context
+                            .read<EditEbookBloc>()
+                            .add(EditEbookEvent.delete(id: id)),
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        )),
+                  ),
                 )
               ],
             ),
@@ -121,14 +124,16 @@ class EbookItemScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ElevatedButton(
-                          onPressed: () => showUpdateEBookModal(
-                              context, value.data, context.read<EbookBloc>()),
-                          child: const Text(
-                            'Update',
-                            style: TextStyle(fontSize: 18),
+                        CrudWidget(
+                          child: ElevatedButton(
+                            onPressed: () => showUpdateEBookModal(
+                                context, value.data, context.read<EbookBloc>()),
+                            child: const Text(
+                              'Update',
+                              style: TextStyle(fontSize: 18),
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),

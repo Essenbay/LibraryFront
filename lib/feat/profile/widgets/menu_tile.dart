@@ -42,13 +42,14 @@ class MenuTile extends StatelessWidget {
                   ),
                   if (subText != null)
                     Text(subText ?? '',
-                        style: TextStyle(color: Colors.black, fontSize: 14)),
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 14)),
                 ]),
               ],
             ),
             IconButton(
                 onPressed: () => onClick(),
-                icon: Icon(
+                icon: const Icon(
                   CupertinoIcons.chevron_right,
                   color: Colors.black,
                 ))

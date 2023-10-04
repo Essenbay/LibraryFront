@@ -14,10 +14,10 @@ class GenreModel {
 }
 
 @JsonSerializable(createFactory: false)
-class GenreRequest {
+class GenreRequestModel {
   final String name;
 
-  GenreRequest(this.name);
+  GenreRequestModel(this.name);
 
-  Map<String, Object?> toJson() => _$GenreRequestToJson(this);
+  Map<String, Object?> toJson() => _$GenreRequestModelToJson(this);
 }

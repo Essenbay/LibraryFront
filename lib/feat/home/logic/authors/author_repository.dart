@@ -22,11 +22,11 @@ class AuthorRepository {
     await network.dio.post('/authors', data: author.toJson());
   }
 
-  Future<void> updateAuthor(AuthorRequestModel authorModel) async {
-    await network.dio.put('/authors', data: authorModel.toJson());
+  Future<void> updateAuthor(int id, AuthorRequestModel authorModel) async {
+    await network.dio.put('/authors/$id', data: authorModel.toJson());
   }
 
-  Future<void> deleteBook(int id) async {
-    await network.dio.delete('/authors/books/$id');
+  Future<void> deleteAuthor(int id) async {
+    await network.dio.delete('/authors/$id');
   }
 }

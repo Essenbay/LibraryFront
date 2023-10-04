@@ -20,7 +20,11 @@ class TextbookBlocWrapper extends StatelessWidget {
           create: (context) => EditTextbookBloc(getIt(), getIt(), getIt()),
         ),
       ],
-      child: child,
+      child: Builder(
+        builder: (context) {
+          return child;
+        }
+      ),
     );
   }
 }

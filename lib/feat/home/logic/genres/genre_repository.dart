@@ -18,15 +18,15 @@ class GenreRepository {
     return GenreModel.fromJson(response.data as Map<String, dynamic>);
   }
 
-  Future<void> createGenre(GenreRequest genre) async {
+  Future<void> createGenre(GenreRequestModel genre) async {
     await network.dio.post('/genres', data: genre.toJson());
   }
 
-  Future<void> updateGenre(GenreRequest genre) async {
-    await network.dio.put('/genres', data: genre.toJson());
+  Future<void> updateGenre(int id, GenreRequestModel genre) async {
+    await network.dio.put('/genres/$id', data: genre.toJson());
   }
 
-  Future<void> deleteBook(int id) async {
-    await network.dio.delete('/genres/books/$id');
+  Future<void> deleteGenre(int id) async {
+    await network.dio.delete('/genres/$id');
   }
 }

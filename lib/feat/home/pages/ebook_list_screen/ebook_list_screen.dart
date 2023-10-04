@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:libraryfront/core/navigation/auto_route.gr.dart';
 import 'package:libraryfront/feat/home/pages/books_list_scren/logic/ebook_list_bloc.dart';
 import 'package:libraryfront/feat/home/pages/books_list_scren/pages/create_ebook/create_ebook_modal.dart';
+import 'package:libraryfront/feat/home/widgets/crud_widget.dart';
 
 class EbookListScreen extends StatelessWidget {
   const EbookListScreen({super.key});
@@ -40,14 +41,15 @@ class EbookListScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: ElevatedButton.icon(
+      floatingActionButton: CrudWidget(
+          child: ElevatedButton.icon(
         icon: const Icon(Icons.add),
         label: const Text('Create'),
         onPressed: () => showCreateEBookModal(
           context,
           context.read<EbookListBloc>(),
         ),
-      ),
+      )),
     );
   }
 }

@@ -9,6 +9,8 @@ import 'package:libraryfront/feat/home/logic/genres/genre_model.dart';
 import 'package:libraryfront/feat/home/logic/textbook/textbook_model.dart';
 import 'package:libraryfront/feat/home/pages/books_list_scren/logic/textbook_list_bloc.dart';
 import 'package:libraryfront/feat/home/pages/books_list_scren/pages/update_textbook/logic/edit_textbook_bloc.dart';
+import 'package:libraryfront/feat/home/widgets/author_dropdown_button.dart';
+import 'package:libraryfront/feat/home/widgets/genre_dropdown_button.dart';
 
 void showCreateTextBookModal(
     BuildContext context, TextbookListBloc bloc) async {
@@ -67,11 +69,12 @@ class _CreateTextbookModalState extends State<_CreateTextbookModal> {
       listener: (context, state) {
         state.mapOrNull(
           success: (value) => context.router.pop(true),
-          failure: (value) => setState(() => _errorMessage = value.message),
+          failure: (value) =>
+              setState(() => _errorMessage = value.message ?? 'Error occured'),
         );
       },
       buildWhen: (previous, current) =>
-          current.maybeMap(failure: (value) => false, orElse: () => true),
+          current.maybeMap(failure: (_) => false, orElse: () => true),
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -99,27 +102,23 @@ class _CreateTextbookModalState extends State<_CreateTextbookModal> {
                 ),
                 const SizedBox(height: 10),
                 const Text('Author', style: TextStyle(fontSize: 16)),
-                DropdownButton(
-                  hint: Text('${author?.surname ?? ''} ${author?.name ?? ''}'),
-                  items: value.authors
-                      .map((e) => DropdownMenuItem(
-                          value: e, child: Text('${e.surname} ${e.name}')))
-                      .toList(),
+                AuthorDropdownButton(
+                  authors: value.authors,
                   onChanged: (value) => setState(() {
-                    if (value != null) author = value;
+                    if (value != null) {
+                      author = value;
+                    }
                   }),
+                  author: author,
                 ),
                 const SizedBox(height: 10),
                 const Text('Genre', style: TextStyle(fontSize: 16)),
-                DropdownButton(
-                  hint: Text(genre?.name ?? ''),
-                  items: value.genres
-                      .map((e) =>
-                          DropdownMenuItem(value: e, child: Text(e.name)))
-                      .toList(),
+                GenreDowndownButton(
+                  genres: value.genres,
                   onChanged: (value) => setState(() {
                     if (value != null) genre = value;
                   }),
+                  selectedGenre: genre,
                 ),
                 CheckboxListTile(
                     title: const Text('Is available?',
@@ -128,7 +127,7 @@ class _CreateTextbookModalState extends State<_CreateTextbookModal> {
                     onChanged: (value) => setState(() {
                           if (value != null) {
                             isAvailable = value;
-                          }
+                          } else {}
                         })),
                 const SizedBox(height: 10),
                 if (_errorMessage != null)

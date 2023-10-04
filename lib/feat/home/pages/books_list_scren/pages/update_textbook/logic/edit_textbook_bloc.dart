@@ -30,6 +30,7 @@ class EditTextbookBloc extends Bloc<EditTextbookEvent, EditTextbookState> {
 
   Future<void> _fetchEvent(
       FetchEvent event, Emitter<EditTextbookState> emit) async {
+    emit(const EditTextbookState.loading());
     try {
       final authors = await _authorRepository.getAuthors();
       final genres = await _genreRepository.getGenres();
@@ -41,6 +42,7 @@ class EditTextbookBloc extends Bloc<EditTextbookEvent, EditTextbookState> {
 
   Future<void> _createEvent(
       CreateEvent event, Emitter<EditTextbookState> emit) async {
+    emit(const EditTextbookState.loading());
     await NetworkHandler.handle(
         () async => await _repository.createTextBook(event.textbook),
         (result) => emit(const EditTextbookState.success()),
@@ -50,6 +52,7 @@ class EditTextbookBloc extends Bloc<EditTextbookEvent, EditTextbookState> {
 
   Future<void> _updateEvent(
       UpdateEvent event, Emitter<EditTextbookState> emit) async {
+    emit(const EditTextbookState.loading());
     await NetworkHandler.handle(
         () async => await _repository.updateTextBook(event.id, event.textbook),
         (result) => emit(const EditTextbookState.success()),
@@ -59,6 +62,7 @@ class EditTextbookBloc extends Bloc<EditTextbookEvent, EditTextbookState> {
 
   Future<void> _deleteEvent(
       DeleteEvent event, Emitter<EditTextbookState> emit) async {
+    emit(const EditTextbookState.loading());
     await NetworkHandler.handle(
         () async => await _repository.deleteBook(event.id),
         (result) => emit(const EditTextbookState.success()),
